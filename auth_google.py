@@ -53,8 +53,8 @@ def test_gmail(creds: Credentials) -> None:
 
 def test_calendar(creds: Credentials) -> None:
     service = build("calendar", "v3", credentials=creds)
-    cal = service.calendars().get(calendarId="primary").execute()
-    print(f"Calendar connected: {cal['summary']} ({cal['id']})")
+    result = service.events().list(calendarId="primary", maxResults=1).execute()
+    print(f"Calendar connected: found {result.get('summary', 'primary')} calendar")
 
 
 if __name__ == "__main__":
