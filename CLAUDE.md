@@ -6,6 +6,18 @@ A personal AI assistant for my sister. Reads her WhatsApp, Telegram, and Gmail (
 
 ## Current Task: Module 3 — Telegram Connector
 
+## Context Maintenance
+
+After completing any milestone, always update:
+- **`CLAUDE.md`** — update current task, add new gotchas, decisions, or constraints discovered
+- **`MEMORY.md`** (`/home/agent/.claude/projects/.../memory/MEMORY.md`) — update build progress, key facts
+
+Specifically update when:
+- A module is completed
+- A non-obvious bug or workaround is found
+- A new architectural decision is made
+- A new credential or config detail is needed
+
 ## Subagent Rules
 
 Delegate the following tasks to subagents to keep the main context clean:
