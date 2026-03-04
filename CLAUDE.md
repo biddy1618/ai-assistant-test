@@ -1,7 +1,7 @@
 # Sister AI Agent — Claude Code Instructions
 
 ## Current Task
-**Module 3: Telegram Connector** (Telethon user client)
+**All modules complete.** Next: end-to-end testing on sister's Windows laptop.
 
 ## Context Maintenance
 After any milestone, gotcha, or architectural decision — update `MEMORY.md`.
