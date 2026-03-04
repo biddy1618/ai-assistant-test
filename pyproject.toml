@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "sister-ai-agent"
+version = "0.1.0"
+description = "Personal AI assistant with read access to WhatsApp, Telegram, and Gmail — controlled via Telegram bot"
+authors = ["You <you@example.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Core
+anthropic = "^0.45"           # Claude API
+python-dotenv = "^1.0"        # .env loading
+pyyaml = "^6.0"               # Config files
+
+# Database
+aiosqlite = "^0.20"           # Async SQLite
+
+# Telegram bot (UI)
+python-telegram-bot = "^21"   # Bot framework (async)
+
+# Telegram client (reading personal messages)
+telethon = "^1.36"            # User client for personal Telegram
+
+# Gmail + Calendar
+google-api-python-client = "^2.150"
+google-auth-oauthlib = "^1.2"
+google-auth-httplib2 = "^0.2"
+
+# WhatsApp — TBD, will add after research phase
+# Utilities
+pydantic = "^2.9"             # Data validation & models
+loguru = "^0.7"               # Better logging
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-asyncio = "^0.24"
+ruff = "^0.8"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

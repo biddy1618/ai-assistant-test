@@ -1,0 +1,15 @@
+# Secrets — never commit these
+config/credentials.json
+config/token.json
+.env
+*.session
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+dist/
+*.egg-info/
+
+# Misc
+.DS_Store
