@@ -4,51 +4,33 @@
 
 A personal AI assistant for my sister. Reads her WhatsApp, Telegram, and Gmail (read-only), creates Google Calendar events (write), and answers questions about her message history. She interacts via a Telegram bot. Runs locally on her laptop.
 
-## Current Task: Google Console API Setup (Module 2 — Gmail Connector)
+## Current Task: Module 3 — Telegram Connector
 
-Setting up Google Cloud project for Gmail (read-only) + Google Calendar (write) access via OAuth2.
+## Subagent Rules
 
-### Google Cloud Setup Checklist
+Delegate the following tasks to subagents to keep the main context clean:
 
-- [ ] Create Google Cloud project under her account
-- [ ] Enable **Gmail API** (`gmail.googleapis.com`)
-- [ ] Enable **Google Calendar API** (`calendar-json.googleapis.com`)
-- [ ] Configure **OAuth consent screen**
-  - Type: External
-  - Mode: Testing
-  - Add her email as a test user
-  - Scopes: `gmail.readonly`, `calendar.events`
-- [ ] Create **OAuth 2.0 Client ID** (type: Desktop app)
-- [ ] Download `credentials.json` → place at `config/credentials.json`
-- [ ] Run OAuth flow once to generate `config/token.json`
-- [ ] Add both files to `.gitignore`
+- **Git operations** (commit, push): spawn a subagent with the list of files and commit message
+- **Running tests**: spawn a subagent to run `poetry run pytest` and report results
+- **Building a new module**: spawn a subagent with the module spec and `BaseConnector` interface
+- **Debugging an isolated error**: spawn a subagent with the error and relevant file context
 
-### OAuth2 Flow (how it works)
+## Google OAuth2 Setup (completed)
 
-1. First run: opens browser → user logs in → grants consent → saves `token.json`
-2. Subsequent runs: loads `token.json` automatically, refreshes if expired
-3. Credentials file: `config/credentials.json` (never commit this)
-4. Token file: `config/token.json` (never commit this)
+- Google Cloud project: `ai-project-489210`
+- Client ID: `14129791863-ajdr6dmegfg07u0o01mijumuq0mk883s.apps.googleusercontent.com`
+- Scopes: `gmail.readonly`, `calendar.events`
+- Auth type: OAuth2 Desktop app (classic token, NOT fine-grained)
+- `config/credentials.json` — from Google Cloud Console (gitignored)
+- `config/token.json` — generated on sister's Windows laptop (gitignored)
+- Sister's email: `a.bota88@gmail.com` (must be added as test user in OAuth consent screen)
 
-### Gmail Scopes
+### Known OAuth Gotchas
 
-```
-https://www.googleapis.com/auth/gmail.readonly
-https://www.googleapis.com/auth/calendar.events
-```
-
-### Key Files for This Module
-
-```
-config/
-├── credentials.json      # Downloaded from Google Cloud Console (DO NOT COMMIT)
-├── token.json            # Generated after first OAuth flow (DO NOT COMMIT)
-└── .env.example          # Template for secrets
-src/connectors/
-└── gmail_connector.py    # Gmail API connector (Module 2)
-src/agent/
-└── calendar.py           # Google Calendar write actions (Module 7)
-```
+1. **Must add sister's email as test user** in Google Cloud Console → APIs & Services → OAuth consent screen → Test users. Otherwise get `Error 403: access_denied`.
+2. **Use classic token** for GitHub, not fine-grained — fine-grained gives 403 unless repo is explicitly selected.
+3. **`calendars.get` needs broader scope** than `calendar.events`. Use `events.list` to test Calendar connectivity.
+4. **Don't press Ctrl+C** after browser opens for OAuth — wait for the terminal to complete.
 
 ## Architecture
 

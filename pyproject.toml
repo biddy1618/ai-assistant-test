@@ -27,6 +27,7 @@ telethon = "^1.36"            # User client for personal Telegram
 google-api-python-client = "^2.150"
 google-auth-oauthlib = "^1.2"
 google-auth-httplib2 = "^0.2"
+requests = "^2.32"               # Proxy-aware HTTP transport for Google APIs
 
 # WhatsApp — TBD, will add after research phase
 # Utilities
